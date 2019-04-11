@@ -1,0 +1,219 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Stage 2: Individual Tasks
+{% endblock %}
+
+{% block content %}
+
+<p class="custom">
+    Please pick the option that best completes each of the following sentences. You can use each option as many times as
+    you would like.
+</p>
+<p class="custom">
+
+    Your answers from this task might be shown to any of your partners on Stage 3.
+</p>
+
+<div class="grid-container">
+    <div class="item item-1">
+        <strong class="custom">I &nbsp</strong>
+    </div>
+    <div class="item item-2">
+        {% formfield player.m_liking_in_words1 with label=""%}
+    </div>
+    <div class="item item-3">
+        <strong class="custom">&nbsp {{movie_types.0}} {{ item_type }}.</strong>
+    </div>
+    <div class="item item-4">
+        <strong class="custom">I &nbsp</strong>
+    </div>
+    <div class="item item-5">
+        {% formfield player.m_liking_in_words2 with label=""%}
+    </div>
+    <div class="item item-6">
+        <strong class="custom">&nbsp {{movie_types.1}} {{ item_type }}.</strong>
+    </div>
+    <div class="item item-7">
+        <strong class="custom">I &nbsp</strong>
+    </div>
+    <div class="item item-8">
+        {% formfield player.m_liking_in_words3 with label=""%}
+    </div>
+    <div class="item item-9">
+        <strong class="custom">&nbsp {{movie_types.2}} {{ item_type }}.</strong>
+    </div>
+    <div class="item item-10">
+        <strong class="custom">I &nbsp</strong>
+    </div>
+    <div class="item item-11">
+        {% formfield player.m_liking_in_words4 with label=""%}
+    </div>
+    <div class="item item-12">
+        <strong class="custom">&nbsp {{movie_types.3}} {{ item_type }}.</strong>
+    </div>
+    <div class="item item-13">
+        <strong class="custom">I &nbsp</strong>
+    </div>
+    <div class="item item-14">
+        {% formfield player.m_liking_in_words5 with label=""%}
+    </div>
+    <div class="item item-15">
+        <strong class="custom">&nbsp {{movie_types.4}} {{ item_type }}.</strong>
+    </div>
+    <div class="item item-16">
+        <strong class="custom">I &nbsp</strong>
+    </div>
+    <div class="item item-17">
+        {% formfield player.m_liking_in_words6 with label=""%}
+    </div>
+    <div class="item item-18">
+        <strong class="custom">&nbsp {{movie_types.5}} {{ item_type }}.</strong>
+    </div>
+    <div class="item item-19">
+        <strong class="custom">I &nbsp</strong>
+    </div>
+    <div class="item item-20">
+        {% formfield player.m_liking_in_words7 with label=""%}
+    </div>
+    <div class="item item-21">
+        <strong class="custom">&nbsp {{movie_types.6}} {{ item_type }}.</strong>
+    </div>
+</div>
+
+
+    <button class="otree-btn-next btn btn-primary" style="font-size:18px">Next</button>
+
+{% endblock %}
+
+
+{% block app_styles %}
+<style type="text/css">
+.custom {
+	font-size: 18px;
+}
+input {
+    display:inline-block;
+    *display: inline;     /* for IE7*/
+    zoom:1;              /* for IE7*/
+    vertical-align:middle;
+    margin-left:20px
+}
+
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto
+  grid-template-rows: auto auto auto auto auto auto auto;
+  justify-content: start;
+  align-content: start;
+}
+
+.item-1 {
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 1;
+  place-self: center start;
+}
+.item-2 {
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 1;
+  place-self: center start;
+}
+.item-3 {
+  grid-column: 3 / span 1;
+  grid-row: 1 / span 1;
+  place-self: center start;
+}
+.item-4 {
+  grid-column: 1 / span 1;
+  grid-row: 2 / span 1;
+  place-self: center start;
+}
+.item-5 {
+  grid-column: 2 / span 1;
+  grid-row: 2 / span 1;
+  place-self: center start;
+}
+.item-6 {
+  grid-column: 3 / span 1;
+  grid-row: 2 / span 1;
+  place-self: center start;
+}
+.item-7 {
+  grid-column: 1 / span 1;
+  grid-row: 3 / span 1;
+  place-self: center start;
+}
+.item-8 {
+  grid-column: 2 / span 1;
+  grid-row: 3 / span 1;
+  place-self: center start;
+}
+.item-9 {
+  grid-column: 3 / span 1;
+  grid-row: 3 / span 1;
+  place-self: center start;
+}
+.item-10 {
+  grid-column: 1 / span 1;
+  grid-row: 4 / span 1;
+  place-self: center start;
+}
+.item-11 {
+  grid-column: 2 / span 1;
+  grid-row: 4 / span 1;
+  place-self: center start;
+}
+.item-12 {
+  grid-column: 3 / span 1;
+  grid-row: 4 / span 1;
+  place-self: center start;
+}
+.item-13 {
+  grid-column: 1 / span 1;
+  grid-row: 5 / span 1;
+  place-self: center start;
+}
+.item-14 {
+  grid-column: 2 / span 1;
+  grid-row: 5 / span 1;
+  place-self: center start;
+}
+.item-15 {
+  grid-column: 3 / span 1;
+  grid-row: 5 / span 1;
+  place-self: center start;
+}
+.item-16 {
+  grid-column: 1 / span 1;
+  grid-row: 6 / span 1;
+  place-self: center start;
+}
+.item-17 {
+  grid-column: 2 / span 1;
+  grid-row: 6 / span 1;
+  place-self: center start;
+}
+.item-18 {
+  grid-column: 3 / span 1;
+  grid-row: 6 / span 1;
+  place-self: center start;
+}
+.item-19 {
+  grid-column: 1 / span 1;
+  grid-row: 7 / span 1;
+  place-self: center start;
+}
+.item-20 {
+  grid-column: 2 / span 1;
+  grid-row: 7 / span 1;
+  place-self: center start;
+}
+.item-21 {
+  grid-column: 3 / span 1;
+  grid-row: 7 / span 1;
+  place-self: center start;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,170 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Stage 3: Tasks with Partners
+{% endblock %}
+
+{% block content %}
+
+<p class="custom">
+    <b>The interaction with your {{ interaction }} Partner is about to begin.</b>
+    {% if interaction == "First" %} <b>This interaction is for practice.</b> {% endif %}
+    <br>
+    Your task is to create an initial model of your partner's preferences over <i>types of {{ item_type }}</i>.
+    <br>
+    You are now being shown the sentences your partner completed in the individual task.
+    They will help you create a first representation of your partner's preferences.
+</p>
+
+<p class="custom">
+    Based on the following sentences, you can move each of the <b><font color="red">red</font></b> labels on the
+    scale below and place them where you think best represents your partner's liking of each {{ item_type }} type.
+    Each <b><font color="red">red</font></b> label must have a unique placement on the line. At this point, moving
+    the <b><font color="red">red</font></b> labels has no cost.
+</p>
+
+<div class="grid-container">
+  <div class="item item-1">
+      <p class="custom"><font color="red">
+          <i><b>I {{ opp_likert_answer.0 }} {{ outcomes.0}} {{ item_type_plural }}.<br><br>
+          I {{ opp_likert_answer.1 }} {{ outcomes.1}} {{ item_type_plural }}.<br><br>
+          I {{ opp_likert_answer.2 }} {{ outcomes.2}} {{ item_type_plural }}.<br><br>
+          I {{ opp_likert_answer.3 }} {{ outcomes.3}} {{ item_type_plural }}.<br><br>
+          I {{ opp_likert_answer.4 }} {{ outcomes.4}} {{ item_type_plural }}.<br><br>
+          I {{ opp_likert_answer.5 }} {{ outcomes.5}} {{ item_type_plural }}.<br><br>
+          I {{ opp_likert_answer.6 }} {{ outcomes.6}} {{ item_type_plural }}.<br><br>
+          </b></i></font>
+      </p>
+  </div>
+  <div class="item item-2" id="util_scales">
+    {% include 'accom_dynam_single/comp_util_utility_scales.html' %}
+  </div>
+</div>
+<br>
+    <p class="custom">Once both you and your partner have clicked NEXT you will have 10 minutes to complete the task.</p>
+
+<button class="otree-btn-next btn btn-primary" onclick="return checkOppUtilVals()" style="font-size:18px">Next</button>
+
+<input type="hidden" name="opp_util_model_1" id="opp_util_model_1" value="0"/>
+<input type="hidden" name="opp_util_model_2" id="opp_util_model_2" value="0"/>
+<input type="hidden" name="opp_util_model_3" id="opp_util_model_3" value="0"/>
+<input type="hidden" name="opp_util_model_4" id="opp_util_model_4" value="0"/>
+<input type="hidden" name="opp_util_model_5" id="opp_util_model_5" value="0"/>
+<input type="hidden" name="opp_util_model_6" id="opp_util_model_6" value="0"/>
+<input type="hidden" name="opp_util_model_7" id="opp_util_model_7" value="0"/>
+
+{{ form.errors }}
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+    function setUtilVals() {
+        document.getElementById("opp_util_model_1").value = otherUtilities[0];
+        document.getElementById("opp_util_model_2").value = otherUtilities[1];
+        document.getElementById("opp_util_model_3").value = otherUtilities[2];
+        document.getElementById("opp_util_model_4").value = otherUtilities[3];
+        document.getElementById("opp_util_model_5").value = otherUtilities[4];
+        document.getElementById("opp_util_model_6").value = otherUtilities[5];
+        document.getElementById("opp_util_model_7").value = otherUtilities[6];
+     };
+
+     function isEqual(value, other) {
+        // Get the value type
+        var type = Object.prototype.toString.call(value);
+
+        // If the two objects are not the same type, return false
+        if (type !== Object.prototype.toString.call(other)) return false;
+
+        // If items are not an object or array, return false
+        if (['[object Array]', '[object Object]'].indexOf(type) < 0) return false;
+
+        // Compare the length of the length of the two items
+        var valueLen = type === '[object Array]' ? value.length : Object.keys(value).length;
+        var otherLen = type === '[object Array]' ? other.length : Object.keys(other).length;
+        if (valueLen !== otherLen) return false;
+
+        // Compare two items
+        var compare = function (item1, item2) {
+            // Code will go here...
+        };
+
+        // Compare properties
+        var match;
+        if (type === '[object Array]') {
+            for (var i = 0; i < valueLen; i++) {
+                compare(value[i], other[i]);
+            }
+        } else {
+            for (var key in value) {
+                if (value.hasOwnProperty(key)) {
+                    compare(value[key], other[key]);
+                }
+            }
+        }
+
+        // If nothing failed, return true
+        return true;
+    };
+
+    function checkOppUtilVals() {
+        setUtilVals();
+
+        utils = [document.getElementById("opp_util_model_1").value, document.getElementById("opp_util_model_2").value,
+        document.getElementById("opp_util_model_3").value, document.getElementById("opp_util_model_4").value,
+        document.getElementById("opp_util_model_5").value, document.getElementById("opp_util_model_6").value,
+        document.getElementById("opp_util_model_7").value];
+
+        var counts = [], prev;
+
+        utils.sort();
+        for ( var i = 0; i < utils.length; i++ ) {
+            if ( utils[i] !== prev ) {
+                counts.push(1);
+            } else {
+                counts[counts.length-1]++;
+            }
+            prev = utils[i];
+        };
+
+        if (isEqual(counts, [1,1,1,1,1,1,1])) {
+            return true;
+        } else {
+            alert("WARNING: Make sure all labels have unique placements before proceeding.");
+            return false;
+        };
+
+    };
+
+
+</script>
+{% endblock %}
+
+{% block app_styles %}
+<style type="text/css">
+.custom {
+	font-size: 18px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: auto
+  justify-content: start;
+  align-content: start;
+  column-gap: 15px
+}
+
+.item-1 {
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 1;
+  place-self: center end;
+}
+
+.item-2 {
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 1;
+  place-self: center start;
+}
+
+</style>
+{% endblock %}

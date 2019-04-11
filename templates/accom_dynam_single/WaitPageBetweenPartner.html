@@ -1,0 +1,51 @@
+{% extends "otree/WaitPage.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+
+{% if last_interaction %}
+<font size="6">
+    All your partner interactions are finished...
+</font>
+{% else %}
+<font size="6">
+    A new interaction is about to begin...
+</font>
+{% endif %}
+
+
+{% endblock %}
+
+
+{% block content %}
+{% if interaction == "First" %} <p><font size="5"> <b> The practice interaction has ended.
+    All following interactions could be eligible for payment.  </b></font></p> {% endif %}
+<p>Waiting for everyone to finish interactions with their {{ interaction }} Partner.</p>
+
+<br>
+
+{% if not last_interaction %}
+<h5>Instructions Summary:</h5>
+<p class="custom">
+<ul>
+    <li> Your task is to create what you believe is the best model of your partner's preferences.</li>
+    <li> Your partner is simultaneously creating a model of your preferences. </li>
+    <li> The <b>black</b> labels represent your model of your own preferences and the <b><font color="red"> red </font></b>
+        labels represent your current model of
+    your partner's preferences.</li>
+    <li> <b><i>"Your choice"</i></b> is the option implied by the combination of your two models to be "best" for you
+        and your partner as a group. This is based on where the <b>black</b> and <b><font color="red"> red </font></b> labels are placed in your models.</li>
+    <li> <b><i>"Your partner's choice" </i></b>is the option implied by the combination of your partner's two models to be "best" for you
+    and your partner as a group. This is based on where the <b>black</b> and <b><font color="red"> red </font></b> labels are
+        placed in your partner's models
+        (only your partner can see this scale).</li>
+    <li> Depending on whether you and your partner <font color="green"> <b>agree</b></font>/<font color="brown"><b>disagree</b> </font>,
+        you may want to modify the placements of the  <b><font color="red"> red </font></b> labels on your model. But this has a cost.</li>
+    <li> The goal is for both of you to try to <font color="green"> <b>agree</b></font> as much as possible.</li>
+    <li> The interaction will end if you and your partner have <font color="green"><b>agreements</b></font> for 10 consecutive rounds
+    or the timer ends.</li>
+    <li> An interaction must consist of at least five rounds to be eligible for payment. </li>
+</ul>
+</p>
+{% endif %}
+{% endblock %}

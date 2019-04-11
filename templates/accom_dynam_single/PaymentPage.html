@@ -1,0 +1,79 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Payment Information
+{% endblock %}
+
+{% block content %}
+<h4><b> {{ date }} </b></h4>
+<br>
+
+{% if valid_payment == True %}
+
+<p class="custom">
+    Your interaction with your {{ interact_for_payment }} Partner was chosen for payment. In that interaction, you and
+    your partner played a total of {{ total_rounds }} rounds. The number of rounds in which you modified
+    your model of your partner's preferences was {{ modif_count }}.
+    <br><br>
+    Five rounds from that interaction were picked at random. You will be paid based on the results from rounds {{ paying_rounds }}, and
+    $0.05 will be deducted from your earnings for every round in which you modified your model of your partner's
+    preferences. The results are detailed below.
+</p>
+
+<font class="custom">
+    <table class="table">
+        <tr>
+            <th>Round</th>
+            <th>Result</th>
+            <th>Your Choice</th>
+            <th>Your Payoff in Round</th>
+        </tr>
+        {% for round_num, round_result, best_choice, payoff in player_in_paying_rounds %}
+            <tr>
+                <td>{{ round_num }}</td>
+                <td>{{ round_result }}</td>
+                <td>{{ best_choice }}</td>
+                <td>{{ payoff }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</font>
+
+{% else %}
+
+<p class="custom">
+    None of your interactions were longer than 5 rounds and were thus ineligible for payment. Therefore, you will receive
+    the $7.00 show-up fee but will not receive any additional earnings.
+</p>
+
+{% endif %}
+
+
+<p class="custom">
+    <br><font size="4"><u><i>Please fill out your payment sheet with the following information:</i></u></font><br>
+    <b>(A) Show-up Payment: </b> $7.00
+    <br>
+    <b>(B) Dollars Earned During Session:</b> {{ final }}
+    <br>
+    &emsp; &emsp; <i>Payoff from Round Results:  {{ cumulative_payoff }}</i>
+    <br>
+    &emsp; &emsp; <i>Cost for modifying partner's model: $0.05 * {{ modif_count}} = {{ subtract }}</i>
+    <br>
+    <b><font color="#C62502">(C) Total Payoff: {{ total_payoff }}</font></b>
+    <br>
+    <b><font color="#C62502">(D) ROUNDED TOTAL (to nearest quarter): {{ rounded_total }}</font></b>
+</p>
+
+
+{% endblock %}
+
+{% block app_styles %}
+<style type="text/css">
+.custom {
+	font-size: 18px;
+}
+</style>
+{% endblock %}
+
+

@@ -1,0 +1,38 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Result from interaction with {{ interaction }} Partner
+{% endblock %}
+
+{% block content %}
+
+<p class="custom">
+    {% if subsession.round_number == 41 %}<b> This interaction was for practice.</b> <br>{% endif %}
+    You and your partner played a total of {{ total_rounds }} rounds and agreed in {{ num_rounds_agree }} of them. The number of rounds
+    you modified your model of your partner was {{ modif_count }}.
+</p>
+<br>
+{% if last_interaction %}
+<font size="3.5px">
+
+    {% for field in form %}
+        {% formfield field %}
+    {% endfor %}
+</font>
+{% endif %}
+
+
+<button class="otree-btn-next btn btn-primary" style="font-size:18px">Next</button>
+
+{% endblock %}
+
+{% block app_styles %}
+<style type="text/css">
+.custom {
+	font-size: 18px;
+}
+</style>
+{% endblock %}
+
+

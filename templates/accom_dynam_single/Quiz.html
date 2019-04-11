@@ -1,0 +1,33 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Stage 3: Tasks with Partners
+{% endblock %}
+
+{% block content %}
+
+    <p class="custom">
+        Please answer the following comprehension questions regarding the instructions. You will be told if you have any errors
+        and will only be able to move forward once you have answered all questions correctly. (Right or wrong answers will
+        not affect your payment.)
+    </p>
+
+<font class="custom">
+    {% for field in form %}
+        {% formfield field %}
+    {% endfor %}
+</font>
+
+    <button class="otree-btn-next btn btn-primary" style="font-size:18px">Next</button>
+
+
+{% endblock %}
+
+{% block app_styles %}
+<style type="text/css">
+.custom {
+	font-size: 18px;
+}
+</style>
+{% endblock %}

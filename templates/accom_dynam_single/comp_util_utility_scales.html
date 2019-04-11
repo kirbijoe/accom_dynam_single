@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load otree static %}
+
+<html>
+	<head>
+		<meta charset="utf-8">
+
+		<!--<title>Prototype for Utility Measurement</title>-->
+		<script src='{% static "accom_dynam/js/d3.min.js" %}'></script>
+
+		<script src='{% static "accom_dynam_single/js/jstat.js" %}'></script>
+
+	</head>
+	<body>
+
+	<div>
+		<svg id='canvas' width=350 height = 450></svg>
+    </div>
+
+
+  <script type="text/javascript">
+	singleDrag = true;
+
+	topValueLabel = 'Like very much';
+	bottomValueLabel = 'Dislike very much';
+
+	max_value = {{ scale_max_value|json }};
+
+    optionLabels = {{ participant.vars.outcomes|json }};
+
+	selfUtilities = {{ self_utils|json }};
+
+	//starting utilities for other.
+	otherUtilities = {{ opp_model|json }};
+  </script>
+
+
+		<script type="text/javascript"  src='{% static "accom_dynam_single/js/measure_utility.js" %}'></script>
+
+
+
+	</body>
+</html>

@@ -1,0 +1,36 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Stage 3: Tasks with Partners
+{% endblock %}
+
+{% block content %}
+
+    <h4>Instructions: 4 of 6</h4>
+
+    <p class="custom">
+        The computer will make the same calculations for your partner based on their own scale.
+        This will be called <b><i>"your partner's choice"</i></b>.
+        <br><br>
+        You will be shown both choices and told whether your current models match your partner's current models about which option
+        is "best" for the both of you.
+    </p>
+
+   <center> <img src='{% static "accom_dynam_single/pics/comp_util_infographic3.png" %}' /></center>
+
+    <p>
+        <i>*This is a static picture.</i>
+    </p>
+
+    <button class="otree-btn-next btn btn-primary" style="font-size:18px">Next</button>
+
+{% endblock %}
+
+{% block app_styles %}
+<style type="text/css">
+.custom {
+	font-size: 18px;
+}
+</style>
+{% endblock %}

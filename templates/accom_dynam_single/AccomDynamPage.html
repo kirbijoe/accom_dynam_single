@@ -1,0 +1,262 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+    Stage 3: Tasks with Partners
+{% endblock %}
+
+{% block content %}
+<h4>Round {{ round_number }} {% if subsession.round_number >= 2 and subsession.round_number <= 41 %} <i>(This
+    interaction is for practice) </i>{% endif %} </h4>
+
+<div class="grid-container">
+  <div class="item item-1">
+      <font class="custom"><u>Option 1:</u></font>
+  </div>
+  <div class="item item-2">
+      <font class="custom"><u>Option 2:</u></font>
+  </div>
+  <div class="item item-3">
+      <font class="custom">{{ option1 }}</font>
+  </div>
+  <div class="item item-4">
+      <font class="custom">{{ option2 }}</font>
+  </div>
+  <div class="item item-5">
+      <font class="custom">Your choice: <b>{{ self_best_choice }}</b></font>
+  </div>
+  <div class="item item-6">
+      <font class="custom">Your partner's choice: <b>{{ opp_best_choice }}</b></font>
+  </div>
+  <div class="item item-7">
+      {% if result == "Agree" %}
+        <p class="custom">
+            You and your partner had an <font color="green"><b>agreement</b></font> about what type of {{ item_type }} is best for both of you.
+        </p>
+      {% else %}
+        <p class="custom">
+            You and your partner had a <font color="brown"><b>disagreement</b></font> about what type of {{ item_type }} is best for both of you.
+        </p>
+      {% endif %}
+  </div>
+  <div class="item item-8">
+      <p class="custom">
+          <i><b>Recall:</b></i><br>
+          If you want, you can adjust your model of your partner by clicking a red label and
+          dragging it up or down. This has a cost per round of $0.05.
+          <br><br>
+          RESET will restore your model to how it was at the beginning of the round.
+      </p>
+      <p class="custom">
+          When you are ready to move on, click NEXT.
+      </p>
+  </div>
+  <div class="item item-9">
+      <font class="custom">Your Model</font>
+  </div>
+  <div class="item item-10">
+      <font class="custom" color="red">Your Model of Your Partner</font>
+  </div>
+  <div class="item item-11" id="util_scales">
+      {% include 'accom_dynam_single/comp_util_utility_scales.html' %}
+  </div>
+  <div class="item item-12" id="payoffs">
+      <table class="table">
+          <tr>
+              <th>Option</th>
+              <th>Round Payoff</th>
+
+          </tr>
+         {% for type, payoff in table %}
+                <tr>
+                    <td>{{ type }}</td>
+                    <td>${{ payoff }}</td>
+                </tr>
+         {% endfor %}
+      </table>
+
+  </div>
+</div>
+
+<button class="otree-btn-next btn btn-primary" onclick="return resetButton()" style="font-size:18px">Reset</button>
+&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;
+<button class="otree-btn-next btn btn-primary" onclick=" return setUtilVals()" style="font-size:18px">Next</button>
+
+<br><br><br>
+<h5>Instructions Summary:</h5>
+<p class="custom">
+<ul>
+    <li> Your task is to create what you believe is the best model of your partner's preferences.</li>
+    <li> Your partner is simultaneously creating a model of your preferences. </li>
+    <li> The <b>black</b> labels represent your model of your own preferences and the <b><font color="red"> red </font></b>
+        labels represent your current model of
+    your partner's preferences.</li>
+    <li> <b><i>"Your choice"</i></b> is the option implied by the combination of your two models to be "best" for you
+        and your partner as a group. This is based on where the <b>black</b> and <b><font color="red"> red </font></b> labels are placed in your models
+        (i.e. in the scale presented above).</li>
+    <li> <b><i>"Your partner's choice" </i></b>is the option implied by the combination of your partner's two models to be "best" for you
+    and your partner as a group. This is based on where the <b>black</b> and <b><font color="red"> red </font></b> labels are
+        placed in your partner's models
+        (only your partner can see this scale).</li>
+    <li> Depending on whether you and your partner <font color="green"> <b>agree</b></font>/<font color="brown"><b>disagree</b> </font>,
+        you may want to modify the placements of the  <b><font color="red"> red </font></b> labels on your model. But this has a cost. </li>
+    <li> The goal is for both of you to try to <font color="green"> <b>agree</b></font> as much as possible.</li>
+    <li> The interaction will end if you and your partner have <font color="green"><b>agreements</b></font> for 10 consecutive rounds
+    or the timer ends.</li>
+    <li> An interaction must consist of at least five rounds to be eligible for payment. </li>
+</ul>
+</p>
+
+<input type="hidden" name="opp_util_model_1" id="opp_util_model_1" />
+<input type="hidden" name="opp_util_model_2" id="opp_util_model_2" />
+<input type="hidden" name="opp_util_model_3" id="opp_util_model_3" />
+<input type="hidden" name="opp_util_model_4" id="opp_util_model_4" />
+<input type="hidden" name="opp_util_model_5" id="opp_util_model_5" />
+<input type="hidden" name="opp_util_model_6" id="opp_util_model_6" />
+<input type="hidden" name="opp_util_model_7" id="opp_util_model_7" />
+
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+    function setUtilVals() {
+        document.getElementById("opp_util_model_1").value = otherUtilities[0];
+        document.getElementById("opp_util_model_2").value = otherUtilities[1];
+        document.getElementById("opp_util_model_3").value = otherUtilities[2];
+        document.getElementById("opp_util_model_4").value = otherUtilities[3];
+        document.getElementById("opp_util_model_5").value = otherUtilities[4];
+        document.getElementById("opp_util_model_6").value = otherUtilities[5];
+        document.getElementById("opp_util_model_7").value = otherUtilities[6];
+
+        return true;
+     }
+
+     function resetButton() {
+        modelAtStart = {{ model_at_start|json }};
+
+        for(i=0; i<otherUtilities.length; i++) {
+            d3.select('#label'+i).attr('y', yScale(modelAtStart[i]));
+            otherUtilities[i] = modelAtStart[i];
+        }
+
+        return false;
+    };
+
+</script>
+{% endblock %}
+
+
+{% block app_styles %}
+<style type="text/css">
+.custom {
+	font-size: 18px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 150px 150px 150px 150px 200px;
+  grid-template-rows: auto auto auto auto auto auto;
+  grid-column-gap: 15px;
+  grid-row-gap: 15px;
+  justify-content: center;
+  align-content: start;
+}
+
+.item-1 {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  place-self: end center;
+}
+
+.item-2 {
+  grid-column-start: 4;
+  grid-column-end: 5;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  place-self: end center;
+}
+
+.item-3 {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  place-self: center center;
+}
+
+.item-4 {
+  grid-column-start: 4;
+  grid-column-end: 5;
+  grid-row-start: 2;
+  grid-row-end: 3;
+  place-self: center center;
+}
+
+.item-5 {
+  grid-column-start: 3;
+  grid-column-end: 5;
+  grid-row-start: 3;
+  grid-row-end: 4;
+  place-self: end start;
+}
+
+.item-6 {
+  grid-column-start: 3;
+  grid-column-end: 5;
+  grid-row-start: 4;
+  grid-row-end: 5;
+  place-self: start start;
+}
+
+.item-7 {
+  grid-column-start: 3;
+  grid-column-end: 5;
+  grid-row-start: 5;
+  grid-row-end: 6;
+  place-self: center start;
+}
+
+.item-8 {
+  grid-column-start: 3;
+  grid-column-end: 5;
+  grid-row-start: 6;
+  grid-row-end: 7;
+  place-self: center start;
+}
+
+.item-9 {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  place-self: center center;
+}
+
+.item-10 {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  place-self: center stretch;
+}
+
+.item-11 {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 2;
+  grid-row-end: span 5;
+  place-self: center center;
+}
+.item-12 {
+  grid-column-start: 5;
+  grid-column-end: 6;
+  grid-row-start: 1;
+  grid-row-end: span 6;
+  place-self: center center;
+}
+
+</style>
+{% endblock %}

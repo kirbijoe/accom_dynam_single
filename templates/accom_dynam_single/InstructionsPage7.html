@@ -1,0 +1,111 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+     Stage 3: Tasks with Partners
+{% endblock %}
+
+{% block content %}
+
+<h4>Instructions: 6 of 6</h4>
+
+<p class="custom">
+    The first interaction you play will be for practice and will not be part of your possible earnings in this experiment.
+    One of the subsequent 3 interactions will be picked at random and the results from that interaction will determine
+    your additional earnings for your participation in this experiment. An interaction must consist of at least five
+    rounds to be eligible for payment.
+
+    <br><br>
+    Payoffs for decisions made in an interaction are as follows:
+    <ul class="custom">
+        <li>
+            For each round of the interaction in which you modify your model of your partner <b>$0.05</b> will be deducted
+            from your total payoff.
+        </li>
+        <li>
+            Five rounds of the interaction will be picked at random for additional earnings:
+        </li>
+            <ul style="list-style-type:circle" class="custom">
+                <li>
+                    For each of those rounds that results in a <font color="brown"><b>disagreement</b></font>, you will receive nothing.
+                </li>
+                <li>
+                    For each of those rounds that results in an <font color="green"><b>agreement</b></font>, your payoff will depend on how much
+                    you personally like the agreed upon option. The table below summarizes all possible payoffs you could earn in
+                    a round based on what the agreed upon option is*:
+                </li>
+            </ul>
+    </ul>
+</p>
+
+<div class="grid-container">
+  <div class="item item-1">
+      <font class="custom">
+         <table class="table">
+            <tr>
+                <th>Option</th>
+                <th>Round Payoff</th>
+
+            </tr>
+            {% for type, payoff in movie_types_payoffs %}
+                <tr>
+                    <td>{{ type }}</td>
+                    <td>${{ payoff }}</td>
+                </tr>
+            {% endfor %}
+         </table>
+      </font>
+  </div>
+  <div class="item item-2">
+      <font class="custom">
+         <table class="table">
+            <tr>
+                <th>Option</th>
+                <th>Round Payoff</th>
+
+            </tr>
+            {% for type, payoff in pizza_types_payoffs %}
+                <tr>
+                    <td>{{ type }}</td>
+                    <td>${{ payoff }}</td>
+                </tr>
+            {% endfor %}
+         </table>
+      </font>
+  </div>
+</div>
+<p><font size="3"> <i>*You will have a table with the possible payoffs throughout the game. </i></font></p>
+
+    <button class="otree-btn-next btn btn-primary" style="font-size:18px">Next</button>
+
+{% endblock %}
+
+{% block app_styles %}
+<style type="text/css">
+.custom {
+	font-size: 18px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: auto ;
+  justify-content: start;
+  align-content: start;
+  grid-column-gap: 50px
+}
+
+.item-1 {
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 1;
+  place-self: center end;
+}
+
+.item-2 {
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 1;
+  place-self: center start;
+}
+</style>
+{% endblock %}
+
